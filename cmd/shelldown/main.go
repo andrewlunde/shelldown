@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -85,6 +86,12 @@ const (
 	markerSet = "#shelldown"
 )
 
+var (
+	//regex scripts for determining placeholders in the shell script template
+	regexIndex = regexp.MustCompile("([\\d]+)")
+	regexSet   = regexp.MustCompile("(" + markerSet + "\\[\\d+\\]\\[\\d+\\])")
+)
+
 //Get the core code block for the shell script
 func getShellCodeBlock(raw []string) []string {
 	if raw[0] != scriptStart {
@@ -115,20 +122,23 @@ func setCodeBlockHolders(shellCode, raw []string) ([]string, error) {
 		if strings.Contains(line, markerGet) {
 
 			//get the index and the full holder (ex. shelldown[7][0])
-			holderStart := strings.Index(line, markerSet)
-			holderIndex := holderStart + len(markerSet) + 1
-			holderIndex2 := holderIndex + 3
-			holderEnd := holderIndex2 + 2
-			index1, err := strconv.Atoi(string(line[holderIndex]))
+			reg1 := regexSet.FindAllString(line, 1)
+			if len(reg1) != 1 {
+				return nil, errors.New("bad regexGet length")
+			}
+			holderStr := reg1[0]
+			reg2 := regexIndex.FindAllString(holderStr, 2)
+			if len(reg2) != 1 {
+				return nil, errors.New("bad regexGet length")
+			}
+			index1, err := strconv.Atoi(reg2[0])
 			if err != nil {
 				return nil, err
 			}
-			index2, err := strconv.Atoi(string(line[holderIndex2]))
+			index2, err := strconv.Atoi(reg2[1])
 			if err != nil {
 				return nil, err
 			}
-			holderStr := line[holderStart:holderEnd]
-			//fmt.Printf("debug holderStr%v\n", holderStr)
 
 			holderValArr, err := getMarkdownHolder(raw, index1)
 			if err != nil {

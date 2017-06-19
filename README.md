@@ -65,7 +65,7 @@ shelldown path/to/markdown.md
 ```
 
 if the bash script generated from the above example was run, it should output
-`everythin is okay` as it was referencing the second line the first codeblock
+`everything is okay` as it was referencing the second line the first codeblock
 
 ### Full Examples
 
