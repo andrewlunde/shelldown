@@ -1,0 +1,4 @@
+*.swp
+vendor
+shunit2
+example/*.sh
