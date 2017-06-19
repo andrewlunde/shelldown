@@ -1,4 +1,4 @@
-<!---
+<!--- shelldown script template, see github.com/rigelrozanski/shelldown
 #!/bin/bash
 
 echo "Testing out the first script:"

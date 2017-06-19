@@ -62,6 +62,9 @@ func rootCmd(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
+		//set autogen text
+		shellCode = writeAutoGenText(shellCode)
+
 		//write the codeblock lines
 		shellPath := strings.Replace(filepath, ".md", ".sh", 1)
 		writeLines(shellCode, shellPath)
@@ -84,6 +87,8 @@ const (
 
 	//Marker representing to set a markdown codeblock for the shell script
 	markerSet = "#shelldown"
+
+	autoGenText = "#This script was generated with shelldown, see github.com/rigelrozanski/shelldown"
 )
 
 var (
@@ -94,14 +99,15 @@ var (
 
 //Get the core code block for the shell script
 func getShellCodeBlock(raw []string) []string {
-	if raw[0] != scriptStart {
+	if !strings.HasPrefix(raw[0], scriptStart) {
+		//fmt.Printf("debug %v %v\n", raw[0], scriptStart)
 		return nil
 	}
 
 	//determine end line
 	endCB := 0
 	for i, line := range raw {
-		if line == scriptEnd && i > 0 {
+		if strings.HasPrefix(line, scriptEnd) && i > 0 {
 			endCB = i //set to the previous line
 			break
 		}
@@ -124,17 +130,20 @@ func setCodeBlockHolders(shellCode, raw []string) ([]string, error) {
 			//get the index and the full holder (ex. shelldown[7][0])
 			reg1 := regexSet.FindAllString(line, 1)
 			if len(reg1) != 1 {
-				return nil, errors.New("bad regexGet length")
+				return nil, errors.New("bad regexSet length")
 			}
+
 			holderStr := reg1[0]
 			reg2 := regexIndex.FindAllString(holderStr, 2)
-			if len(reg2) != 1 {
-				return nil, errors.New("bad regexGet length")
+			if len(reg2) != 2 { //there should be 2 index files (ex. #shelldown[7][9])
+				return nil, errors.New("bad regexIndex length")
 			}
+
 			index1, err := strconv.Atoi(reg2[0])
 			if err != nil {
 				return nil, err
 			}
+
 			index2, err := strconv.Atoi(reg2[1])
 			if err != nil {
 				return nil, err
@@ -181,6 +190,13 @@ func getMarkdownHolder(raw []string, index int) ([]string, error) {
 
 	//fmt.Printf("debug start %v, end %v, index %v\n", startCB, endCB, index)
 	return raw[startCB:endCB], nil
+}
+
+func writeAutoGenText(shellcode []string) []string {
+	return append(
+		[]string{shellcode[0], autoGenText},
+		shellcode[1:]...,
+	)
 }
 
 /////////////////////////////////////////////////////////////////////////////
