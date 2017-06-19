@@ -1,5 +1,7 @@
 # shelldown!
 
+[![CircleCI](https://circleci.com/gh/rigelrozanski/shelldown.svg?style=svg)](https://circleci.com/gh/rigelrozanski/shelldown)
+
 _Generate shell scripts from embedded comments and code blocks within markdown_
 
 ---
