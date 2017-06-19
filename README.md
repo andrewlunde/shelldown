@@ -30,19 +30,19 @@ Within the body of your markdown file you may have codeblocks you wish to test.
 To designate a codeblock for testing simply add `shelldown[index]` to the first line
 designating a codeblock. Here `index` refers to any integer:
 
-``` markdown 
-    ```  shelldown[0]
-    echo "my codeblock"
-    echo "what a cool echo"
-    ```
-``` 
+``````  
+```  shelldown[0]
+echo "my codeblock"
+echo "what a cool echo"
+```
+``````
 
 To reference from this codeblock within shell script template use
 `#shelldown[index][line]` where the `index` is the same integer as above, and
 `line` is the line number within the code block to be referenced. Here is a
 very simple completed example:
 
-```
+``````
 <!---
 #!/bin/bash
 
@@ -53,12 +53,12 @@ very simple completed example:
 
 here is some awesome code btw:
 
-    ``` shelldown[0]
-    echo "everything is okay"
-    echo "everything is right"
+``` shelldown[0]
+echo "everything is okay"
+echo "everything is right"
 
-    ```
 ```
+``````
 
 To generate the shell script use the command:
 
