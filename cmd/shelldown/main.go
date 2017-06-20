@@ -66,7 +66,7 @@ func rootCmd(cmd *cobra.Command, args []string) error {
 		shellCode = writeAutoGenText(shellCode)
 
 		//write the codeblock lines
-		shellPath := strings.Replace(filepath, ".md", ".sh", 1)
+		shellPath := filepath + ".sh"
 		writeLines(shellCode, shellPath)
 	}
 	return nil

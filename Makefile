@@ -1,5 +1,4 @@
 PACKAGES=$(shell go list ./... | grep -v '/vendor/')
-SHELLDOWNS=$(shell find example/ -name "*sh" -type f)
 MARKDOWNS=$(shell find example/ -name "*md" -type f)
 
 all: get_vendor_deps install test
@@ -17,9 +16,9 @@ test_unit:
 
 test_example: get_shunit2
 	shelldown ${MARKDOWNS} 
-	for script in ${SHELLDOWNS} ; do \
-		echo "\n\n\nRunning test for script: $$script" ; \
-		bash $$script ; \
+	for script in ${MARKDOWNS} ; do \
+		echo "\n\n\nRunning test for script: $$script.sh" ; \
+		bash $$script.sh ; \
 	done
 
 get_vendor_deps:
