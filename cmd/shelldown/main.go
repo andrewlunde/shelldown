@@ -93,8 +93,8 @@ const (
 
 var (
 	//regex scripts for determining placeholders in the shell script template
-	regexIndex = regexp.MustCompile("([\\d]+)")
-	regexSet   = regexp.MustCompile("(" + markerSet + "\\[\\d+\\]\\[\\d+\\])")
+	regexIndex = regexp.MustCompile("([-?\\d]+)")
+	regexSet   = regexp.MustCompile("(" + markerSet + "\\[\\d+\\]\\[-?\\d+\\])")
 )
 
 //Get the core code block for the shell script
@@ -155,7 +155,12 @@ func setCodeBlockHolders(shellCode, raw []string) ([]string, error) {
 			}
 
 			//fmt.Printf("debug holder %v, index1 %v, index2 %v\n", holderValArr, index1, index2)
-			appendLine = strings.Replace(line, holderStr, holderValArr[index2], -1)
+			if index2 == -1 { //special case to print all of the lines
+				holderVal := strings.Join(holderValArr, "\n")
+				appendLine = strings.Replace(line, holderStr, holderVal, -1)
+			} else {
+				appendLine = strings.Replace(line, holderStr, holderValArr[index2], -1)
+			}
 		}
 		out = append(out, appendLine)
 	}

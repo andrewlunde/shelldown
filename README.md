@@ -39,8 +39,10 @@ echo "what a cool echo"
 
 To reference from this codeblock within shell script template use
 `#shelldown[index][line]` where the `index` is the same integer as above, and
-`line` is the line number within the code block to be referenced. Here is a
-very simple completed example:
+`line` is the line number within the code block to be referenced. Note that if 
+the line number is set to `-1` then the entire codeblock will be used.
+
+Here is a very simple completed example:
 
 ``````
 <!---
@@ -68,6 +70,7 @@ shelldown path/to/markdown.md
 
 if the bash script generated from the above example was run, it should output
 `everything is okay` as it was referencing the second line the first codeblock
+
 
 ### Full Examples
 

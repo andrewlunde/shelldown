@@ -2,12 +2,16 @@
 #!/bin/bash
 
 echo "Testing out the first script:"
-#shelldown[1][0]
 echo "The above should have output: woohoo!"
 
 echo "Testing out the second script, route stderr to stdout:"
 $(#shelldown[2][0]) 2>&1 > /dev/null
 echo "The above should have output: whoops!"
+
+echo "Printing an entire codeblock"
+#shelldown[1][-1]
+echo "The above should have output: woohoo! then hoohoo!"
+
 -->
 
 # Example Markdown File!
@@ -19,10 +23,11 @@ this markdown file.
 
 ### Some Simple Scripts
 
-The following terminal command should output to `stdout`:
+The following terminal commands should output to `stdout`:
 
 ``` shelldown[1]
 echo "woohoo!"
+echo "hoohoo!"
 ```
 
 This next line of code should reroute the output to `stderr`:
