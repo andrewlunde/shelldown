@@ -9,6 +9,7 @@ $(#shelldown[2][0]) 2>&1 > /dev/null
 echo "The above should have output: whoops!"
 
 echo "Printing an entire codeblock"
+echo #shelldown[1][-1]
 #shelldown[1][-1]
 echo "The above should have output: woohoo! then hoohoo!"
 
