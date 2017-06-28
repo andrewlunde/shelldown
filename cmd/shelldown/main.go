@@ -167,7 +167,12 @@ func setCodeBlockHolders(shellCode, raw []string) ([]string, error) {
 				//appendLine = strings.Replace(line, holderStr, holderVal, -1)
 
 			} else {
+				if len(holderValArr) <= index2 {
+					return nil, fmt.Errorf("index of %v  out of range for placeholder %v, holderValArr",
+						index2, holderStr, holderValArr)
+				}
 				appendLine = strings.Replace(line, holderStr, holderValArr[index2], -1)
+
 			}
 		}
 		out = append(out, appendLine)
