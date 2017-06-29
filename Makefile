@@ -16,9 +16,9 @@ test_unit:
 
 test_example: get_shunit2
 	shelldown ${MARKDOWNS} 
-	for script in ${MARKDOWNS} ; do \
+	for script in example/*.sh ; do \
 		echo "\n\n\nRunning test for script: $$script.sh" ; \
-		bash $$script.sh ; \
+		bash $$script ; \
 	done
 
 get_vendor_deps:
