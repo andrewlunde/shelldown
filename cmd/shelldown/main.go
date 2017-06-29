@@ -159,16 +159,20 @@ func setCodeBlockHolders(shellCode, raw []string) ([]string, error) {
 			if index2 == -1 { //special case to print all of the lines
 				var appendLineArr []string
 				for _, val := range holderValArr {
+
+					//skip if a blank line
+					if len(val) == 0 {
+						continue
+					}
+
 					innerAppendLine := strings.Replace(line, holderStr, val, -1)
 					appendLineArr = append(appendLineArr, innerAppendLine)
 				}
 				appendLine = strings.Join(appendLineArr, "\n")
-				//holderVal := strings.Join(holderValArr, "\n")
-				//appendLine = strings.Replace(line, holderStr, holderVal, -1)
 
 			} else {
 				if len(holderValArr) <= index2 {
-					return nil, fmt.Errorf("index of %v  out of range for placeholder %v, holderValArr",
+					return nil, fmt.Errorf("index of %v  out of range for placeholder %v, holderValArr %v",
 						index2, holderStr, holderValArr)
 				}
 				appendLine = strings.Replace(line, holderStr, holderValArr[index2], -1)

@@ -28,6 +28,7 @@ The following terminal commands should output to `stdout`:
 
 ``` shelldown[1]
 echo "woohoo!"
+
 echo "hoohoo!"
 ```
 
