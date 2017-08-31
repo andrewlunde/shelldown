@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"errors"
 	"fmt"
 	"os"
@@ -10,6 +9,8 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
+
+	"github.com/rigelrozanski/common"
 )
 
 // RootCmd is the root cobra command of this program
@@ -42,7 +43,7 @@ func rootCmd(cmd *cobra.Command, args []string) error {
 		}
 
 		// Read file into a string object
-		raw, err := readLines(filepath)
+		raw, err := common.readLines(filepath)
 		if err != nil {
 			return err
 		}
@@ -67,7 +68,7 @@ func rootCmd(cmd *cobra.Command, args []string) error {
 
 		//write the codeblock lines
 		shellPath := filepath + ".sh"
-		writeLines(shellCode, shellPath)
+		common.writeLines(shellCode, shellPath)
 	}
 	return nil
 }
@@ -219,41 +220,4 @@ func writeAutoGenText(shellcode []string) []string {
 		[]string{shellcode[0], autoGenText},
 		shellcode[1:]...,
 	)
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-// TODO add to github.com/rigelrozanski/common
-// Credit: https://stackoverflow.com/questions/5884154/read-text-file-into-string-array-and-write
-
-// readLines reads a whole file into memory
-// and returns a slice of its lines.
-func readLines(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
-}
-
-// writeLines writes the lines to the given file.
-func writeLines(lines []string, path string) error {
-	file, err := os.Create(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	w := bufio.NewWriter(file)
-	for _, line := range lines {
-		fmt.Fprintln(w, line)
-	}
-	return w.Flush()
 }
