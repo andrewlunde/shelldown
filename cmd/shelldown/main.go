@@ -43,7 +43,7 @@ func rootCmd(cmd *cobra.Command, args []string) error {
 		}
 
 		// Read file into a string object
-		raw, err := common.readLines(filepath)
+		raw, err := common.ReadLines(filepath)
 		if err != nil {
 			return err
 		}
@@ -68,7 +68,7 @@ func rootCmd(cmd *cobra.Command, args []string) error {
 
 		//write the codeblock lines
 		shellPath := filepath + ".sh"
-		common.writeLines(shellCode, shellPath)
+		common.WriteLines(shellCode, shellPath)
 	}
 	return nil
 }
