@@ -10,7 +10,7 @@ machine:
 
 dependencies:
   override:
-    - go get github.com/Masterminds/glide
+    - go get github.com/andrewlunde/glide
     - go version
     - glide --version
     - mkdir -p "$PROJECT_PARENT_PATH"

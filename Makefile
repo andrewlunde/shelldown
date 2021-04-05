@@ -22,7 +22,7 @@ test_example: get_shunit2
 	done
 
 get_vendor_deps:
-	go get -u -v github.com/Masterminds/glide
+	go get -u -v github.com/andrewlunde/glide
 	glide install
 
 get_shunit2:
