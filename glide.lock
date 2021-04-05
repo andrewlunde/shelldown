@@ -3,7 +3,7 @@ updated: 2017-08-31T03:24:40.721846846-04:00
 imports:
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
-- name: github.com/rigelrozanski/common
+- name: github.com/andrewlunde/common
   version: 8562c8bbca83e4dbf08ab3a8d969f76dd9a3db34
 - name: github.com/spf13/cobra
   version: 4a7b7e65864c064d48dce82efbbfed2bdc0bf2aa

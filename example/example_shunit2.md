@@ -1,4 +1,4 @@
-<!--- shelldown script template, see github.com/rigelrozanski/shelldown
+<!--- shelldown script template, see github.com/andrewlunde/shelldown
 #!/bin/bash
 
 test00EchoStd() {

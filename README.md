@@ -9,7 +9,7 @@ _Generate shell scripts from embedded comments and code blocks within markdown_
 
 ### Installation
 ```
-go get github.com/rigelrozanski/shelldown
+go get github.com/andrewlunde/shelldown
 make all
 ```
 
